@@ -28,7 +28,7 @@ the bad:
 
 not their fault:
 
-1. positioning of elements in a scrolling pane can get totally FUBAR'd thanks to chrome
+1. positioning of elements in a scrolling pane with the time travel debugger can get totally FUBAR'd thanks to chrome
 2. not enough community to have a lot of basic/simple quesitons answered.
 3. i used a shit ton of parens because i dont know how you're supposed to make sure certain operations go through first (shit ain't no PEMDAS)
 4. i don't know how to throttle events with this.
