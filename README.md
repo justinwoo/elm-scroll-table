@@ -1,4 +1,7 @@
-# elm-scroll-table
+# elm-scroll-table 
+
+[demo](http://justinwoo.github.io/elm-scroll-table)
+
 a scroll table done in elm using the standard architecture
 
 painfully made in the course of something like 10 hours.
