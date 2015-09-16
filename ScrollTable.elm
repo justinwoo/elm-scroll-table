@@ -4,8 +4,7 @@ import Html exposing (..)
 import Html.Attributes exposing (id, class, style)
 import Html.Events exposing (on)
 import Json.Decode as Json
-import Debug exposing (log)
-import List exposing (indexedMap, length)
+import List exposing (map, length)
 import StartApp.Simple exposing (start)
 
 -- DOM helper
@@ -106,10 +105,10 @@ tableView props =
       columnWidths,
       visibleIndices
     } = props
-    rows = indexedMap (\i index ->
+    rows = map (\index ->
                  rowView
                    {
-                     key = toString (i % (length visibleIndices)),
+                     key = toString (index % (length visibleIndices)),
                      index = index,
                      rowHeight = rowHeight,
                      columnWidths = columnWidths
@@ -178,6 +177,6 @@ main =
   start
   {
     model = initializedModel,
-    update = update,
-    view = view
+    view = view,
+    update = update
   }
