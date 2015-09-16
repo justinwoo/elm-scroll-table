@@ -6,7 +6,7 @@ import Html.Events exposing (on)
 import Json.Decode as Json
 import Debug exposing (log)
 import List exposing (indexedMap, length)
-import StartApp
+import StartApp.Simple exposing (start)
 
 -- DOM helper
 scrollTop : Json.Decoder Int
@@ -131,6 +131,7 @@ view address model =
       } = model
   in
     div [] [
+      h1 [style [("text-align", "center")]] [text "Scroll Table!!!!"],
       div [id "app-container"] [
         div
           [
@@ -174,7 +175,7 @@ initialModel =
 initializedModel = calculateVisibleIndices initialModel 0
 
 main =
-  StartApp.start
+  start
   {
     model = initializedModel,
     update = update,
