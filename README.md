@@ -6,6 +6,8 @@ a scroll table done in elm using the standard architecture
 
 painfully made in the course of something like 10 hours.
 
+edit: did i mention there's a qiita post for this now? check it out [here](http://qiita.com/kimagure/items/57cdd08bdf56cc51d294).
+
 ## my reactions:
 
 the good:
