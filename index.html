@@ -7193,7 +7193,7 @@ var _elm_lang$html$Html_Events$Options = F2(
 var _justinwoo$elm_scroll_table$ScrollTable$initialModel = {
 	height: 500,
 	width: 800,
-	rowCount: 10000,
+	rowCount: 1000,
 	rowHeight: 30,
 	visibleIndices: _elm_lang$core$Native_List.fromArray(
 		[])
@@ -7351,7 +7351,7 @@ var _justinwoo$elm_scroll_table$ScrollTable$calculateVisibleIndices = F2(
 		var height = _p2.height;
 		var firstRow = (scrollTop / rowHeight) | 0;
 		var visibleRows = ((height + 1) / rowHeight) | 0;
-		var lastRow = firstRow + visibleRows;
+		var lastRow = A2(_elm_lang$core$Basics$min, rowCount, (firstRow + visibleRows) + 10);
 		return _elm_lang$core$Native_Utils.update(
 			model,
 			{

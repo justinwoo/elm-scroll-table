@@ -48,7 +48,7 @@ calculateVisibleIndices model scrollTop =
             (height + 1) // rowHeight
 
         lastRow =
-            firstRow + visibleRows
+            min rowCount <| firstRow + visibleRows + 10
     in
         { model | visibleIndices = [firstRow..lastRow] }
 
@@ -207,16 +207,18 @@ initialModel : Model
 initialModel =
     { height = 500
     , width = 800
-    , rowCount = 10000
+    , rowCount = 1000
     , rowHeight = 30
     , visibleIndices = []
     }
 
 
+initializedModel : Model
 initializedModel =
     calculateVisibleIndices initialModel 0
 
 
+main : Program Never
 main =
     beginnerProgram
         { model = initializedModel
