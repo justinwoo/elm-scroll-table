@@ -88,18 +88,23 @@ update action model =
 
 -- VIEW
 
+tableWidth : Int
+tableWidth = 900
+
+cellWidth : Int
+cellWidth = tableWidth // 3
+
 
 type alias RowViewProps =
     { index : Int
     , rowHeight : Int
-    , columnWidths : Array.Array Int
     }
 
 
 rowView : RowViewProps -> Html Msg
 rowView props =
     let
-        { index, rowHeight, columnWidths } =
+        { index, rowHeight } =
             props
 
         trStyle =
@@ -110,23 +115,30 @@ rowView props =
                 , ( "borderBottom", "1px solid black" )
                 ]
 
-        firstCol =
-            Array.get 0 columnWidths |> withDefault 300
-
-        secondCol =
-            Array.get 1 columnWidths |> withDefault 300
-
-        thirdCol =
-            Array.get 2 columnWidths |> withDefault 300
     in
-        tr [ trStyle ]
-            [ td [ style [ ( "width", (toString firstCol) ++ "px" ) ] ]
+        div [ trStyle ]
+            [ div
+                [ style
+                    [ ( "width", (toString cellWidth) ++ "px" ) 
+                    , ( "display", "inline-block" )
+                    ] 
+                ]
                 [ text (toString (index))
                 ]
-            , td [ style [ ( "width", (toString secondCol) ++ "px" ) ] ]
+            , div
+                [ style
+                    [ ( "width", (toString cellWidth) ++ "px" ) 
+                    , ( "display", "inline-block" )
+                    ] 
+                ]
                 [ text (toString (index * 10))
                 ]
-            , td [ style [ ( "width", (toString thirdCol) ++ "px" ) ] ]
+            , div
+                [ style
+                    [ ( "width", (toString cellWidth) ++ "px" ) 
+                    , ( "display", "inline-block" )
+                    ] 
+                ]
                 [ text (toString (index * 100))
                 ]
             ]
@@ -136,14 +148,13 @@ type alias TableViewProps =
     { rowCount : Int
     , rowHeight : Int
     , visibleIndices : VisibleIndices
-    , columnWidths : Array.Array Int
     }
 
 
 tableView : TableViewProps -> Html Msg
 tableView props =
     let
-        { rowCount, rowHeight, columnWidths, visibleIndices } =
+        { rowCount, rowHeight, visibleIndices } =
             props
 
         rows =
@@ -152,13 +163,12 @@ tableView props =
                     rowView
                         { index = index
                         , rowHeight = rowHeight
-                        , columnWidths = columnWidths
                         }
                 )
                 visibleIndices
     in
-        table [ style [ ( "height", toString (rowCount * rowHeight) ++ "px" ) ] ]
-            [ tbody [] rows
+        div [ style [ ( "height", toString (rowCount * rowHeight) ++ "px" ) ] ]
+            [ div [] rows
             ]
 
 
@@ -187,12 +197,6 @@ view model =
                         { rowCount = rowCount
                         , rowHeight = rowHeight
                         , visibleIndices = visibleIndices
-                        , columnWidths =
-                            Array.fromList
-                                [ 300
-                                , 300
-                                , 300
-                                ]
                         }
                     ]
                 ]
@@ -206,7 +210,7 @@ view model =
 initialModel : Model
 initialModel =
     { height = 500
-    , width = 800
+    , width = tableWidth
     , rowCount = 1000
     , rowHeight = 30
     , visibleIndices = []
