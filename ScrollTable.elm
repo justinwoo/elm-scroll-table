@@ -42,13 +42,13 @@ calculateVisibleIndices model scrollTop =
             model
 
         firstRow =
-            max 0 <| scrollTop // rowHeight - 10
+            max 0 <| scrollTop // rowHeight
 
         visibleRows =
             (height + 1) // rowHeight
 
         lastRow =
-            min rowCount <| firstRow + visibleRows + 20
+            min rowCount <| firstRow + visibleRows + 10
     in
         { model | visibleIndices = [firstRow..lastRow] }
 
@@ -60,6 +60,7 @@ calculateVisibleIndices model scrollTop =
 type alias Model =
     { height : Int
     , width : Int
+    , cellWidth : Int
     , rowCount : Int
     , rowHeight : Int
     , visibleIndices : VisibleIndices
@@ -88,23 +89,18 @@ update action model =
 
 -- VIEW
 
-tableWidth : Int
-tableWidth = 900
 
-cellWidth : Int
-cellWidth = tableWidth // 3
-
-
-type alias RowViewProps =
-    { index : Int
-    , rowHeight : Int
+type alias RowViewProps a =
+    { a
+        | rowHeight : Int
+        , cellWidth : Int
     }
 
 
-rowView : RowViewProps -> Html Msg
-rowView props =
+rowView : Int -> RowViewProps Model -> Html Msg
+rowView index props =
     let
-        { index, rowHeight } =
+        { rowHeight, cellWidth } =
             props
 
         trStyle =
@@ -114,44 +110,44 @@ rowView props =
                 , ( "width", "100%" )
                 , ( "borderBottom", "1px solid black" )
                 ]
-
     in
         div [ trStyle ]
             [ div
                 [ style
-                    [ ( "width", (toString cellWidth) ++ "px" ) 
+                    [ ( "width", (toString cellWidth) ++ "px" )
                     , ( "display", "inline-block" )
-                    ] 
+                    ]
                 ]
                 [ text (toString (index))
                 ]
             , div
                 [ style
-                    [ ( "width", (toString cellWidth) ++ "px" ) 
+                    [ ( "width", (toString cellWidth) ++ "px" )
                     , ( "display", "inline-block" )
-                    ] 
+                    ]
                 ]
                 [ text (toString (index * 10))
                 ]
             , div
                 [ style
-                    [ ( "width", (toString cellWidth) ++ "px" ) 
+                    [ ( "width", (toString cellWidth) ++ "px" )
                     , ( "display", "inline-block" )
-                    ] 
+                    ]
                 ]
                 [ text (toString (index * 100))
                 ]
             ]
 
 
-type alias TableViewProps =
-    { rowCount : Int
-    , rowHeight : Int
-    , visibleIndices : VisibleIndices
+type alias TableViewProps a =
+    { a
+        | rowCount : Int
+        , rowHeight : Int
+        , visibleIndices : VisibleIndices
     }
 
 
-tableView : TableViewProps -> Html Msg
+tableView : TableViewProps Model -> Html Msg
 tableView props =
     let
         { rowCount, rowHeight, visibleIndices } =
@@ -160,10 +156,7 @@ tableView props =
         rows =
             map
                 (\index ->
-                    rowView
-                        { index = index
-                        , rowHeight = rowHeight
-                        }
+                    rowView index props
                 )
                 visibleIndices
     in
@@ -193,11 +186,7 @@ view model =
                         ]
                     , onScroll UserScroll
                     ]
-                    [ tableView
-                        { rowCount = rowCount
-                        , rowHeight = rowHeight
-                        , visibleIndices = visibleIndices
-                        }
+                    [ tableView model
                     ]
                 ]
             ]
@@ -207,10 +196,16 @@ view model =
 -- Bootstrap
 
 
+tableWidth : Int
+tableWidth =
+    900
+
+
 initialModel : Model
 initialModel =
     { height = 500
     , width = tableWidth
+    , cellWidth = tableWidth // 3
     , rowCount = 1000
     , rowHeight = 30
     , visibleIndices = []

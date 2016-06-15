@@ -7191,103 +7191,112 @@ var _elm_lang$html$Html_Events$Options = F2(
 		return {stopPropagation: a, preventDefault: b};
 	});
 var _justinwoo$elm_scroll_table$ScrollTable$tableWidth = 900;
-var _justinwoo$elm_scroll_table$ScrollTable$cellWidth = (_justinwoo$elm_scroll_table$ScrollTable$tableWidth / 3) | 0;
-var _justinwoo$elm_scroll_table$ScrollTable$rowView = function (props) {
-	var _p0 = props;
-	var index = _p0.index;
-	var rowHeight = _p0.rowHeight;
-	var trStyle = _elm_lang$html$Html_Attributes$style(
-		_elm_lang$core$Native_List.fromArray(
-			[
-				{ctor: '_Tuple2', _0: 'position', _1: 'absolute'},
-				{
-				ctor: '_Tuple2',
-				_0: 'top',
-				_1: A2(
-					_elm_lang$core$Basics_ops['++'],
-					_elm_lang$core$Basics$toString(index * rowHeight),
-					'px')
-			},
-				{ctor: '_Tuple2', _0: 'width', _1: '100%'},
-				{ctor: '_Tuple2', _0: 'borderBottom', _1: '1px solid black'}
-			]));
-	return A2(
-		_elm_lang$html$Html$div,
-		_elm_lang$core$Native_List.fromArray(
-			[trStyle]),
-		_elm_lang$core$Native_List.fromArray(
-			[
-				A2(
-				_elm_lang$html$Html$div,
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html_Attributes$style(
-						_elm_lang$core$Native_List.fromArray(
-							[
-								{
-								ctor: '_Tuple2',
-								_0: 'width',
-								_1: A2(
-									_elm_lang$core$Basics_ops['++'],
-									_elm_lang$core$Basics$toString(_justinwoo$elm_scroll_table$ScrollTable$cellWidth),
-									'px')
-							},
-								{ctor: '_Tuple2', _0: 'display', _1: 'inline-block'}
-							]))
-					]),
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html$text(
-						_elm_lang$core$Basics$toString(index))
-					])),
-				A2(
-				_elm_lang$html$Html$div,
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html_Attributes$style(
-						_elm_lang$core$Native_List.fromArray(
-							[
-								{
-								ctor: '_Tuple2',
-								_0: 'width',
-								_1: A2(
-									_elm_lang$core$Basics_ops['++'],
-									_elm_lang$core$Basics$toString(_justinwoo$elm_scroll_table$ScrollTable$cellWidth),
-									'px')
-							},
-								{ctor: '_Tuple2', _0: 'display', _1: 'inline-block'}
-							]))
-					]),
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html$text(
-						_elm_lang$core$Basics$toString(index * 10))
-					])),
-				A2(
-				_elm_lang$html$Html$div,
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html_Attributes$style(
-						_elm_lang$core$Native_List.fromArray(
-							[
-								{
-								ctor: '_Tuple2',
-								_0: 'width',
-								_1: A2(
-									_elm_lang$core$Basics_ops['++'],
-									_elm_lang$core$Basics$toString(_justinwoo$elm_scroll_table$ScrollTable$cellWidth),
-									'px')
-							},
-								{ctor: '_Tuple2', _0: 'display', _1: 'inline-block'}
-							]))
-					]),
-				_elm_lang$core$Native_List.fromArray(
-					[
-						_elm_lang$html$Html$text(
-						_elm_lang$core$Basics$toString(index * 100))
-					]))
-			]));
+var _justinwoo$elm_scroll_table$ScrollTable$initialModel = {
+	height: 500,
+	width: _justinwoo$elm_scroll_table$ScrollTable$tableWidth,
+	cellWidth: (_justinwoo$elm_scroll_table$ScrollTable$tableWidth / 3) | 0,
+	rowCount: 1000,
+	rowHeight: 30,
+	visibleIndices: _elm_lang$core$Native_List.fromArray(
+		[])
 };
+var _justinwoo$elm_scroll_table$ScrollTable$rowView = F2(
+	function (index, props) {
+		var _p0 = props;
+		var rowHeight = _p0.rowHeight;
+		var cellWidth = _p0.cellWidth;
+		var trStyle = _elm_lang$html$Html_Attributes$style(
+			_elm_lang$core$Native_List.fromArray(
+				[
+					{ctor: '_Tuple2', _0: 'position', _1: 'absolute'},
+					{
+					ctor: '_Tuple2',
+					_0: 'top',
+					_1: A2(
+						_elm_lang$core$Basics_ops['++'],
+						_elm_lang$core$Basics$toString(index * rowHeight),
+						'px')
+				},
+					{ctor: '_Tuple2', _0: 'width', _1: '100%'},
+					{ctor: '_Tuple2', _0: 'borderBottom', _1: '1px solid black'}
+				]));
+		return A2(
+			_elm_lang$html$Html$div,
+			_elm_lang$core$Native_List.fromArray(
+				[trStyle]),
+			_elm_lang$core$Native_List.fromArray(
+				[
+					A2(
+					_elm_lang$html$Html$div,
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html_Attributes$style(
+							_elm_lang$core$Native_List.fromArray(
+								[
+									{
+									ctor: '_Tuple2',
+									_0: 'width',
+									_1: A2(
+										_elm_lang$core$Basics_ops['++'],
+										_elm_lang$core$Basics$toString(cellWidth),
+										'px')
+								},
+									{ctor: '_Tuple2', _0: 'display', _1: 'inline-block'}
+								]))
+						]),
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html$text(
+							_elm_lang$core$Basics$toString(index))
+						])),
+					A2(
+					_elm_lang$html$Html$div,
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html_Attributes$style(
+							_elm_lang$core$Native_List.fromArray(
+								[
+									{
+									ctor: '_Tuple2',
+									_0: 'width',
+									_1: A2(
+										_elm_lang$core$Basics_ops['++'],
+										_elm_lang$core$Basics$toString(cellWidth),
+										'px')
+								},
+									{ctor: '_Tuple2', _0: 'display', _1: 'inline-block'}
+								]))
+						]),
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html$text(
+							_elm_lang$core$Basics$toString(index * 10))
+						])),
+					A2(
+					_elm_lang$html$Html$div,
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html_Attributes$style(
+							_elm_lang$core$Native_List.fromArray(
+								[
+									{
+									ctor: '_Tuple2',
+									_0: 'width',
+									_1: A2(
+										_elm_lang$core$Basics_ops['++'],
+										_elm_lang$core$Basics$toString(cellWidth),
+										'px')
+								},
+									{ctor: '_Tuple2', _0: 'display', _1: 'inline-block'}
+								]))
+						]),
+					_elm_lang$core$Native_List.fromArray(
+						[
+							_elm_lang$html$Html$text(
+							_elm_lang$core$Basics$toString(index * 100))
+						]))
+				]));
+	});
 var _justinwoo$elm_scroll_table$ScrollTable$tableView = function (props) {
 	var _p1 = props;
 	var rowCount = _p1.rowCount;
@@ -7296,8 +7305,7 @@ var _justinwoo$elm_scroll_table$ScrollTable$tableView = function (props) {
 	var rows = A2(
 		_elm_lang$core$List$map,
 		function (index) {
-			return _justinwoo$elm_scroll_table$ScrollTable$rowView(
-				{index: index, rowHeight: rowHeight});
+			return A2(_justinwoo$elm_scroll_table$ScrollTable$rowView, index, props);
 		},
 		visibleIndices);
 	return A2(
@@ -7326,23 +7334,15 @@ var _justinwoo$elm_scroll_table$ScrollTable$tableView = function (props) {
 				rows)
 			]));
 };
-var _justinwoo$elm_scroll_table$ScrollTable$initialModel = {
-	height: 500,
-	width: _justinwoo$elm_scroll_table$ScrollTable$tableWidth,
-	rowCount: 1000,
-	rowHeight: 30,
-	visibleIndices: _elm_lang$core$Native_List.fromArray(
-		[])
-};
 var _justinwoo$elm_scroll_table$ScrollTable$calculateVisibleIndices = F2(
 	function (model, scrollTop) {
 		var _p2 = model;
 		var rowHeight = _p2.rowHeight;
 		var rowCount = _p2.rowCount;
 		var height = _p2.height;
-		var firstRow = A2(_elm_lang$core$Basics$max, 0, ((scrollTop / rowHeight) | 0) - 10);
+		var firstRow = A2(_elm_lang$core$Basics$max, 0, (scrollTop / rowHeight) | 0);
 		var visibleRows = ((height + 1) / rowHeight) | 0;
-		var lastRow = A2(_elm_lang$core$Basics$min, rowCount, (firstRow + visibleRows) + 20);
+		var lastRow = A2(_elm_lang$core$Basics$min, rowCount, (firstRow + visibleRows) + 10);
 		return _elm_lang$core$Native_Utils.update(
 			model,
 			{
@@ -7370,17 +7370,9 @@ var _justinwoo$elm_scroll_table$ScrollTable$onScroll = function (tagger) {
 		'scroll',
 		A2(_elm_lang$core$Json_Decode$map, tagger, _justinwoo$elm_scroll_table$ScrollTable$scrollTop));
 };
-var _justinwoo$elm_scroll_table$ScrollTable$Model = F5(
-	function (a, b, c, d, e) {
-		return {height: a, width: b, rowCount: c, rowHeight: d, visibleIndices: e};
-	});
-var _justinwoo$elm_scroll_table$ScrollTable$RowViewProps = F2(
-	function (a, b) {
-		return {index: a, rowHeight: b};
-	});
-var _justinwoo$elm_scroll_table$ScrollTable$TableViewProps = F3(
-	function (a, b, c) {
-		return {rowCount: a, rowHeight: b, visibleIndices: c};
+var _justinwoo$elm_scroll_table$ScrollTable$Model = F6(
+	function (a, b, c, d, e, f) {
+		return {height: a, width: b, cellWidth: c, rowCount: d, rowHeight: e, visibleIndices: f};
 	});
 var _justinwoo$elm_scroll_table$ScrollTable$UserScroll = function (a) {
 	return {ctor: 'UserScroll', _0: a};
@@ -7453,8 +7445,7 @@ var _justinwoo$elm_scroll_table$ScrollTable$view = function (model) {
 							]),
 						_elm_lang$core$Native_List.fromArray(
 							[
-								_justinwoo$elm_scroll_table$ScrollTable$tableView(
-								{rowCount: rowCount, rowHeight: rowHeight, visibleIndices: visibleIndices})
+								_justinwoo$elm_scroll_table$ScrollTable$tableView(model)
 							]))
 					]))
 			]));
