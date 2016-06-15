@@ -7190,19 +7190,12 @@ var _elm_lang$html$Html_Events$Options = F2(
 	function (a, b) {
 		return {stopPropagation: a, preventDefault: b};
 	});
-var _justinwoo$elm_scroll_table$ScrollTable$initialModel = {
-	height: 500,
-	width: 800,
-	rowCount: 1000,
-	rowHeight: 30,
-	visibleIndices: _elm_lang$core$Native_List.fromArray(
-		[])
-};
+var _justinwoo$elm_scroll_table$ScrollTable$tableWidth = 900;
+var _justinwoo$elm_scroll_table$ScrollTable$cellWidth = (_justinwoo$elm_scroll_table$ScrollTable$tableWidth / 3) | 0;
 var _justinwoo$elm_scroll_table$ScrollTable$rowView = function (props) {
 	var _p0 = props;
 	var index = _p0.index;
 	var rowHeight = _p0.rowHeight;
-	var columnWidths = _p0.columnWidths;
 	var trStyle = _elm_lang$html$Html_Attributes$style(
 		_elm_lang$core$Native_List.fromArray(
 			[
@@ -7218,18 +7211,6 @@ var _justinwoo$elm_scroll_table$ScrollTable$rowView = function (props) {
 				{ctor: '_Tuple2', _0: 'width', _1: '100%'},
 				{ctor: '_Tuple2', _0: 'borderBottom', _1: '1px solid black'}
 			]));
-	var firstCol = A2(
-		_elm_lang$core$Maybe$withDefault,
-		300,
-		A2(_elm_lang$core$Array$get, 0, columnWidths));
-	var secondCol = A2(
-		_elm_lang$core$Maybe$withDefault,
-		300,
-		A2(_elm_lang$core$Array$get, 1, columnWidths));
-	var thirdCol = A2(
-		_elm_lang$core$Maybe$withDefault,
-		300,
-		A2(_elm_lang$core$Array$get, 2, columnWidths));
 	return A2(
 		_elm_lang$html$Html$div,
 		_elm_lang$core$Native_List.fromArray(
@@ -7248,7 +7229,7 @@ var _justinwoo$elm_scroll_table$ScrollTable$rowView = function (props) {
 								_0: 'width',
 								_1: A2(
 									_elm_lang$core$Basics_ops['++'],
-									_elm_lang$core$Basics$toString(firstCol),
+									_elm_lang$core$Basics$toString(_justinwoo$elm_scroll_table$ScrollTable$cellWidth),
 									'px')
 							},
 								{ctor: '_Tuple2', _0: 'display', _1: 'inline-block'}
@@ -7271,7 +7252,7 @@ var _justinwoo$elm_scroll_table$ScrollTable$rowView = function (props) {
 								_0: 'width',
 								_1: A2(
 									_elm_lang$core$Basics_ops['++'],
-									_elm_lang$core$Basics$toString(firstCol),
+									_elm_lang$core$Basics$toString(_justinwoo$elm_scroll_table$ScrollTable$cellWidth),
 									'px')
 							},
 								{ctor: '_Tuple2', _0: 'display', _1: 'inline-block'}
@@ -7294,7 +7275,7 @@ var _justinwoo$elm_scroll_table$ScrollTable$rowView = function (props) {
 								_0: 'width',
 								_1: A2(
 									_elm_lang$core$Basics_ops['++'],
-									_elm_lang$core$Basics$toString(firstCol),
+									_elm_lang$core$Basics$toString(_justinwoo$elm_scroll_table$ScrollTable$cellWidth),
 									'px')
 							},
 								{ctor: '_Tuple2', _0: 'display', _1: 'inline-block'}
@@ -7311,13 +7292,12 @@ var _justinwoo$elm_scroll_table$ScrollTable$tableView = function (props) {
 	var _p1 = props;
 	var rowCount = _p1.rowCount;
 	var rowHeight = _p1.rowHeight;
-	var columnWidths = _p1.columnWidths;
 	var visibleIndices = _p1.visibleIndices;
 	var rows = A2(
 		_elm_lang$core$List$map,
 		function (index) {
 			return _justinwoo$elm_scroll_table$ScrollTable$rowView(
-				{index: index, rowHeight: rowHeight, columnWidths: columnWidths});
+				{index: index, rowHeight: rowHeight});
 		},
 		visibleIndices);
 	return A2(
@@ -7346,15 +7326,23 @@ var _justinwoo$elm_scroll_table$ScrollTable$tableView = function (props) {
 				rows)
 			]));
 };
+var _justinwoo$elm_scroll_table$ScrollTable$initialModel = {
+	height: 500,
+	width: _justinwoo$elm_scroll_table$ScrollTable$tableWidth,
+	rowCount: 1000,
+	rowHeight: 30,
+	visibleIndices: _elm_lang$core$Native_List.fromArray(
+		[])
+};
 var _justinwoo$elm_scroll_table$ScrollTable$calculateVisibleIndices = F2(
 	function (model, scrollTop) {
 		var _p2 = model;
 		var rowHeight = _p2.rowHeight;
 		var rowCount = _p2.rowCount;
 		var height = _p2.height;
-		var firstRow = (scrollTop / rowHeight) | 0;
+		var firstRow = A2(_elm_lang$core$Basics$max, 0, ((scrollTop / rowHeight) | 0) - 10);
 		var visibleRows = ((height + 1) / rowHeight) | 0;
-		var lastRow = A2(_elm_lang$core$Basics$min, rowCount, (firstRow + visibleRows) + 10);
+		var lastRow = A2(_elm_lang$core$Basics$min, rowCount, (firstRow + visibleRows) + 20);
 		return _elm_lang$core$Native_Utils.update(
 			model,
 			{
@@ -7386,13 +7374,13 @@ var _justinwoo$elm_scroll_table$ScrollTable$Model = F5(
 	function (a, b, c, d, e) {
 		return {height: a, width: b, rowCount: c, rowHeight: d, visibleIndices: e};
 	});
-var _justinwoo$elm_scroll_table$ScrollTable$RowViewProps = F3(
-	function (a, b, c) {
-		return {index: a, rowHeight: b, columnWidths: c};
+var _justinwoo$elm_scroll_table$ScrollTable$RowViewProps = F2(
+	function (a, b) {
+		return {index: a, rowHeight: b};
 	});
-var _justinwoo$elm_scroll_table$ScrollTable$TableViewProps = F4(
-	function (a, b, c, d) {
-		return {rowCount: a, rowHeight: b, visibleIndices: c, columnWidths: d};
+var _justinwoo$elm_scroll_table$ScrollTable$TableViewProps = F3(
+	function (a, b, c) {
+		return {rowCount: a, rowHeight: b, visibleIndices: c};
 	});
 var _justinwoo$elm_scroll_table$ScrollTable$UserScroll = function (a) {
 	return {ctor: 'UserScroll', _0: a};
@@ -7466,14 +7454,7 @@ var _justinwoo$elm_scroll_table$ScrollTable$view = function (model) {
 						_elm_lang$core$Native_List.fromArray(
 							[
 								_justinwoo$elm_scroll_table$ScrollTable$tableView(
-								{
-									rowCount: rowCount,
-									rowHeight: rowHeight,
-									visibleIndices: visibleIndices,
-									columnWidths: _elm_lang$core$Array$fromList(
-										_elm_lang$core$Native_List.fromArray(
-											[300, 300, 300]))
-								})
+								{rowCount: rowCount, rowHeight: rowHeight, visibleIndices: visibleIndices})
 							]))
 					]))
 			]));
