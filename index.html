@@ -7340,9 +7340,9 @@ var _justinwoo$elm_scroll_table$ScrollTable$calculateVisibleIndices = F2(
 		var rowHeight = _p2.rowHeight;
 		var rowCount = _p2.rowCount;
 		var height = _p2.height;
-		var firstRow = A2(_elm_lang$core$Basics$max, 0, (scrollTop / rowHeight) | 0);
+		var firstRow = A2(_elm_lang$core$Basics$max, 0, ((scrollTop / rowHeight) | 0) - 10);
 		var visibleRows = ((height + 1) / rowHeight) | 0;
-		var lastRow = A2(_elm_lang$core$Basics$min, rowCount, (firstRow + visibleRows) + 10);
+		var lastRow = A2(_elm_lang$core$Basics$min, rowCount, (firstRow + visibleRows) + 20);
 		return _elm_lang$core$Native_Utils.update(
 			model,
 			{

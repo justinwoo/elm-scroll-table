@@ -42,13 +42,13 @@ calculateVisibleIndices model scrollTop =
             model
 
         firstRow =
-            max 0 <| scrollTop // rowHeight
+            max 0 <| scrollTop // rowHeight - 10
 
         visibleRows =
             (height + 1) // rowHeight
 
         lastRow =
-            min rowCount <| firstRow + visibleRows + 10
+            min rowCount <| firstRow + visibleRows + 20
     in
         { model | visibleIndices = [firstRow..lastRow] }
 
