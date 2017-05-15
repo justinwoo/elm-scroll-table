@@ -1,13 +1,11 @@
 module ScrollTable exposing (..)
 
 import Html exposing (..)
-import Html.App exposing (beginnerProgram)
+import Html exposing (beginnerProgram)
 import Html.Attributes exposing (id, class, style)
 import Html.Events exposing (on)
 import Json.Decode as Json
-import Array as Array
-import Maybe exposing (withDefault)
-import List exposing (map, length)
+import List exposing (map, length, range)
 
 
 -- DOM helper
@@ -50,7 +48,7 @@ calculateVisibleIndices model scrollTop =
         lastRow =
             min rowCount <| firstRow + visibleRows + 20
     in
-        { model | visibleIndices = [firstRow..lastRow] }
+        { model | visibleIndices = range firstRow lastRow }
 
 
 
@@ -108,7 +106,6 @@ rowView index props =
                 [ ( "position", "absolute" )
                 , ( "top", toString (index * rowHeight) ++ "px" )
                 , ( "width", "100%" )
-                , ( "borderBottom", "1px solid black" )
                 ]
     in
         div [ trStyle ]
@@ -154,7 +151,7 @@ tableView props =
             props
 
         rows =
-            map
+            List.map
                 (\index ->
                     rowView index props
                 )
@@ -180,7 +177,6 @@ view model =
                         [ ( "margin", "auto" )
                         , ( "position", "relative" )
                         , ( "overflowX", "hidden" )
-                        , ( "border", "1px solid black" )
                         , ( "height", (toString height) ++ "px" )
                         , ( "width", (toString width) ++ "px" )
                         ]
@@ -204,7 +200,7 @@ tableWidth =
 initialModel : Model
 initialModel =
     { height = 500
-    , width = tableWidth
+    , width = tableWidth + 200 -- extra leniency
     , cellWidth = tableWidth // 3
     , rowCount = 1000
     , rowHeight = 30
@@ -217,7 +213,7 @@ initializedModel =
     calculateVisibleIndices initialModel 0
 
 
-main : Program Never
+main : Program Never Model Msg
 main =
     beginnerProgram
         { model = initializedModel
